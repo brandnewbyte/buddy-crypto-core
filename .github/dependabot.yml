@@ -7,10 +7,9 @@ updates:
       interval: monthly
     open-pull-requests-limit: 5
     groups:
-      cargo-minor-and-patch:
-        update-types:
-          - minor
-          - patch
+      cargo:
+        patterns:
+          - "*"
 
   - package-ecosystem: github-actions
     directory: "/"
