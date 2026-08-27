@@ -2,10 +2,19 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 permissions:
   contents: read
+
+# A Dependabot branch push and its pull_request event would otherwise each
+# start a full run. Restricting push to main means branches are covered once,
+# by the pull_request event.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   quality:
