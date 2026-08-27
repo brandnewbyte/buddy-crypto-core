@@ -1,0 +1,25 @@
+[package]
+name = "buddy-crypto-core"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "Network-free cryptographic primitives for Buddy password vaults"
+authors = ["Brand New Byte LLC"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/brandnewbyte/buddy-crypto-core"
+homepage = "https://pwbuddy.com"
+readme = "README.md"
+publish = false
+
+[dependencies]
+argon2 = "0.5"
+chacha20poly1305 = "0.10"
+hkdf = "0.12"
+rand = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+zeroize = "1.7"
+
+[dev-dependencies]
+hex = "0.4"

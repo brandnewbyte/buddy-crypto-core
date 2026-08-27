@@ -1,0 +1,68 @@
+{
+  "profile": "buddy-vault-v1",
+  "description": "Deterministic compatibility values only. Never reuse these keys, salts, nonces, or plaintexts in production.",
+  "kdf": {
+    "password_utf8": "Buddy vault 🔐 café",
+    "password_hex": "4275646479207661756c7420f09f949020636166c3a9",
+    "salt_hex": "000102030405060708090a0b0c0d0e0f",
+    "params": {
+      "algo": "argon2id",
+      "mem_cost": 65536,
+      "time_cost": 3,
+      "parallelism": 4,
+      "version": 19
+    },
+    "output_length_bytes": 32,
+    "master_key_hex": "bbb9499ebe142c3dbb6e617cb2814aef7401502b8129804cc596d7e3bb81f257"
+  },
+  "derived_keys": {
+    "algorithm": "hkdf-sha256",
+    "salt_hex": "",
+    "output_length_bytes": 32,
+    "vault_verification": {
+      "info_utf8": "vault-verification-v1",
+      "key_hex": "81f036c9376e55f55aa0e33f32161a945d4da00bb081b88e6f782d9c8e9fe6a9"
+    },
+    "entry": {
+      "info_utf8": "entry-key-v1",
+      "key_hex": "b3914d71cba5a3bb5d0cec4dd3f176ffc2a8e2a75738f8ddbd631a0851706f93"
+    },
+    "entry_blob": {
+      "info_utf8": "entry-blob-key-v1",
+      "key_hex": "7ef0213cd8dbb8b501fe74dfc54c57ac492330a0a41abf95bc3a17492a8b7106"
+    }
+  },
+  "verifier": {
+    "algorithm": "xchacha20poly1305",
+    "key_hex": "81f036c9376e55f55aa0e33f32161a945d4da00bb081b88e6f782d9c8e9fe6a9",
+    "nonce_hex": "202122232425262728292a2b2c2d2e2f3031323334353637",
+    "associated_data_hex": "",
+    "plaintext_hex": "a0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf",
+    "ciphertext_and_tag_hex": "6a5f25039351e3f912a6f70137401970211beea90289aeb193ae79c69a329ffd4f5a29b172ee5981adc5f8aed430d84e"
+  },
+  "authenticated_encryption": {
+    "algorithm": "xchacha20poly1305",
+    "record_type": "entry",
+    "vault_id": "11111111-1111-4111-8111-111111111111",
+    "entry_id": "22222222-2222-4222-8222-222222222222",
+    "key_source": "derived_keys.entry",
+    "key_hex": "b3914d71cba5a3bb5d0cec4dd3f176ffc2a8e2a75738f8ddbd631a0851706f93",
+    "nonce_hex": "404142434445464748494a4b4c4d4e4f5051525354555657",
+    "associated_data_hex": "000000000000000e62756464792d7661756c742d76310000000000000005656e747279000000000000002431313131313131312d313131312d343131312d383131312d313131313131313131313131000000000000002432323232323232322d323232322d343232322d383232322d323232323232323232323232",
+    "plaintext_utf8": "{\"icon\":null,\"groups\":[]}",
+    "plaintext_hex": "7b2269636f6e223a6e756c6c2c2267726f757073223a5b5d7d",
+    "ciphertext_and_tag_hex": "35e8d175a146996b64fbf5fb7135c7eea5daf4044862c9f90da55de78fd1da516d2ee16fcdc5c20db0"
+  },
+  "entry_blob_envelope": {
+    "algorithm": "xchacha20poly1305",
+    "record_type": "entry-blob-envelope",
+    "vault_id": "11111111-1111-4111-8111-111111111111",
+    "blob_id": "33333333-3333-4333-8333-333333333333",
+    "key_source": "derived_keys.entry_blob",
+    "key_hex": "7ef0213cd8dbb8b501fe74dfc54c57ac492330a0a41abf95bc3a17492a8b7106",
+    "nonce_hex": "808182838485868788898a8b8c8d8e8f9091929394959697",
+    "associated_data_hex": "000000000000000e62756464792d7661756c742d76310000000000000013656e7472792d626c6f622d656e76656c6f7065000000000000002431313131313131312d313131312d343131312d383131312d313131313131313131313131000000000000002433333333333333332d333333332d343333332d383333332d333333333333333333333333",
+    "plaintext_key_hex": "606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f",
+    "ciphertext_and_tag_hex": "8f6e5b6028fa2fba76938fedd38b150ebdc59fbd13d18c0c4d6f2aab52f84fb8baed3485cdfdb704a279c0c382d4baf4"
+  }
+}
