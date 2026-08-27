@@ -15,10 +15,11 @@
 
 use argon2::{Algorithm, Argon2, Params, Version};
 use chacha20poly1305::{
-    Key, XChaCha20Poly1305, XNonce,
-    aead::{Aead, KeyInit, OsRng, Payload, rand_core::RngCore},
+    XChaCha20Poly1305, XNonce,
+    aead::{Aead, KeyInit, Payload},
 };
 use hkdf::Hkdf;
+use rand::{RngCore, rngs::OsRng};
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use sha2::Sha256;
@@ -147,10 +148,11 @@ impl Crypto {
         ciphertext: &[u8],
         associated_data: &[u8],
     ) -> Result<Vec<u8>, CryptoError> {
-        let cipher = XChaCha20Poly1305::new(Key::from_slice(&key));
+        let cipher = cipher_from_key(&key);
+        let nonce = nonce_from_bytes(&nonce);
         cipher
             .decrypt(
-                XNonce::from_slice(&nonce),
+                &nonce,
                 Payload {
                     msg: ciphertext,
                     aad: associated_data,
@@ -321,10 +323,11 @@ pub fn verify_master_key(
     master_key: &[u8; 32],
 ) -> Result<(), String> {
     let verification_key = derive_subkey(master_key, VAULT_VERIFICATION_CTX);
-    let cipher = XChaCha20Poly1305::new(Key::from_slice(&verification_key));
+    let cipher = cipher_from_key(&verification_key);
+    let nonce = nonce_from_bytes(verifier_nonce);
 
     cipher
-        .decrypt(XNonce::from_slice(verifier_nonce), verifier_ciphertext)
+        .decrypt(&nonce, verifier_ciphertext)
         .map_err(|_| "invalid password")?;
 
     Ok(())
@@ -336,16 +339,25 @@ fn encrypt_bytes_with_nonce(
     value: &[u8],
     associated_data: &[u8],
 ) -> Result<Vec<u8>, CryptoError> {
-    let cipher = XChaCha20Poly1305::new(Key::from_slice(key));
+    let cipher = cipher_from_key(key);
+    let nonce = nonce_from_bytes(nonce);
     cipher
         .encrypt(
-            XNonce::from_slice(nonce),
+            &nonce,
             Payload {
                 msg: value,
                 aad: associated_data,
             },
         )
         .map_err(|_| CryptoError::Encryption)
+}
+
+fn cipher_from_key(key: &[u8; 32]) -> XChaCha20Poly1305 {
+    XChaCha20Poly1305::new_from_slice(key).expect("32-byte XChaCha20-Poly1305 key")
+}
+
+fn nonce_from_bytes(nonce: &[u8; 24]) -> XNonce {
+    XNonce::try_from(nonce.as_slice()).expect("24-byte XChaCha20-Poly1305 nonce")
 }
 
 #[cfg(test)]
