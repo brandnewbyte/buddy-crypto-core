@@ -40,6 +40,12 @@ KDF parameters are stored alongside each vault. Changing the recommended
 profile for newly created vaults therefore does not make older vaults
 unreadable.
 
+## App versions
+
+| Crate tag | Buddy app |
+| --- | --- |
+| `v0.1.0` | 1.1.0 and later |
+
 ## Use
 
 ```rust
