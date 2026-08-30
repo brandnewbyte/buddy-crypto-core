@@ -95,11 +95,3 @@ This code has **not yet completed an independent third-party audit**. Public
 source and tests improve inspectability; they are not a substitute for an
 audit. Security reports can be sent to `support@pwbuddy.com` or through the
 process published at <https://pwbuddy.com/security>.
-
-## Publication checklist
-
-This crate is intentionally marked `publish = false` until the following
-release decisions are complete:
-
-- enable the repository's GitHub security features and configure release
-  signing.
