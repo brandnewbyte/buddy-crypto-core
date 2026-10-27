@@ -2,7 +2,7 @@
 name = "buddy-crypto-core"
 version = "0.1.0"
 edition = "2024"
-rust-version = "1.85"
+rust-version = "1.87"
 description = "Network-free cryptographic primitives for Buddy password vaults"
 authors = ["Brand New Byte LLC"]
 license = "MIT OR Apache-2.0"
